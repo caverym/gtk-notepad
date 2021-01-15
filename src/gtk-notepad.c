@@ -43,13 +43,12 @@ void gtk_notepad_set_title(const char* filename) {
 void gtk_notepad_show_about_box(void) {
     GtkWidget *dialog = gtk_about_dialog_new();
     GtkAboutDialog *dlg = GTK_ABOUT_DIALOG(dialog);
-    gtk_about_dialog_set_name(dlg, "GTK Notepad");
-    gtk_about_dialog_set_version(dlg, "0.1");
-    gtk_about_dialog_set_copyright(dlg, "(c) Victor Kindhart");
+    gtk_about_dialog_set_program_name(dlg, "GTK Notepad");
+    gtk_about_dialog_set_version(dlg, "0.2");
+    gtk_about_dialog_set_copyright(dlg, "© Avery Murray");
     gtk_about_dialog_set_comments(dlg, "GTK Notepad is a text editing "
-                            "program written in C and GTK.");
-    gtk_about_dialog_set_website(dlg,
-        "http://www.victorkindhart.com/projects/gtk-notepad/");
+                            "program written in C and GTK. "
+                            "\nOriginal by Victor Kindhart");;
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
 }
@@ -150,11 +149,11 @@ void gtk_text_view_toggle_wrapping(void) {
                                 mode);
 }
 
-
+/*
 void gtk_notepad_select_font(void) {
     GtkResponseType result;
 
-    GtkWidget *dialog = gtk_font_selection_dialog_new("Select a font");
+    GtkWidget *dialog = gtk_font_chooser_dialog_new("Select a font", NULL);
 
     result = gtk_dialog_run(GTK_DIALOG(dialog));
 
@@ -172,7 +171,13 @@ void gtk_notepad_select_font(void) {
 
     gtk_widget_destroy(dialog);
 }
+*/
 
+void gtk_notepad_select_font(void) {
+    GtkWidget * dialog = gtk_font_chooser_dialog_new(NULL, NULL);
+
+    gtk_widget_destroy(dialog);
+}
 
 void gtk_statusbar_update_lncol(void) {
     char *msg;
@@ -444,38 +449,38 @@ void setup_menubar(void) {
     // Accelerators
 
     // File menu
-    gtk_widget_add_accelerator(new,  "activate", accel, GDK_n,
+    gtk_widget_add_accelerator(new,  "activate", accel, GDK_KEY_n,
                                GDK_CONTROL_MASK,
                                GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(open, "activate", accel, GDK_o,
+    gtk_widget_add_accelerator(open, "activate", accel, GDK_KEY_o,
                                GDK_CONTROL_MASK,
                                GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(save, "activate", accel, GDK_s,
+    gtk_widget_add_accelerator(save, "activate", accel, GDK_KEY_s,
                                GDK_CONTROL_MASK,
                                GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(saveas, "activate", accel, GDK_s,
+    gtk_widget_add_accelerator(saveas, "activate", accel, GDK_KEY_s,
                                GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                                GTK_ACCEL_VISIBLE);
 
-    gtk_widget_add_accelerator(quit, "activate", accel, GDK_q,
+    gtk_widget_add_accelerator(quit, "activate", accel, GDK_KEY_q,
                                GDK_CONTROL_MASK,
                                GTK_ACCEL_VISIBLE);
 
     // Edit menu
-    gtk_widget_add_accelerator(cut, "activate", accel, GDK_x,
+    gtk_widget_add_accelerator(cut, "activate", accel, GDK_KEY_x,
                                GDK_CONTROL_MASK,
                                GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(copy, "activate", accel, GDK_c,
+    gtk_widget_add_accelerator(copy, "activate", accel, GDK_KEY_c,
                                GDK_CONTROL_MASK,
                                GTK_ACCEL_VISIBLE);
-    gtk_widget_add_accelerator(paste, "activate", accel, GDK_v,
+    gtk_widget_add_accelerator(paste, "activate", accel, GDK_KEY_v,
                                GDK_CONTROL_MASK,
                                GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(delete, "activate", accel, GDK_KEY_Delete,
                                0,
                                GTK_ACCEL_VISIBLE);
 
-    gtk_widget_add_accelerator(selectall, "activate", accel, GDK_a,
+    gtk_widget_add_accelerator(selectall, "activate", accel, GDK_KEY_a,
                                GDK_CONTROL_MASK,
                                GTK_ACCEL_VISIBLE);
     gtk_widget_add_accelerator(time_date, "activate", accel, GDK_KEY_F5,
@@ -605,7 +610,7 @@ int main(int argc, char* argv[]) {
     gtk_window_set_position(gwindow, GTK_WIN_POS_CENTER);
     //gtk_window_set_icon(gwindow, create_pixbuf(icon));
 
-    vbox = gtk_vbox_new(FALSE, 0);
+    vbox = gtk_box_new(FALSE, 1);
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
     accel = gtk_accel_group_new();
