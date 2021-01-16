@@ -4,7 +4,7 @@
 
 char *PROGNAME;
 char *title = "gnotepad";
-char *icon = "gnotepad.png";
+char *icon  = "gnotepad.png";
 char *loaded_fn = NULL;
 int errno;
 
@@ -39,9 +39,9 @@ GtkWidget *textarea;
 GtkTextBuffer *buffer;
 GtkWidget *scrolledwindow;
 gboolean modified = FALSE;
-char wrapping = 1;		// Wrapping will be set to 0 by default
+char wrapping = 1; // Wrapping will be set to 0 by default
 
 void gtk_statusbar_update_lncol(void);
-char gtk_notepad_open_file(const char *);
+char gtk_notepad_open_file(const char*);
 void gtk_notepad_save();
 void gtk_notepad_saveas(void);

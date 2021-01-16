@@ -1,0 +1,22 @@
+pkgname=gnotepad
+pkgver=0.2
+pkgrel=1
+pkgdesc="A simple GTK Notepad"
+arch=('x86_64')
+url="https://github.com/caverym/gnotepad"
+license=('GPL2')
+depends=('gtk3')
+makedepends=('git')
+
+sources=("git+https://github.com/caverym/gnotepad.git")
+sha256sum=('SKIP')
+
+build() {
+	pwd
+}
+
+package() {
+	install -Dm 755 $pkgname/gnotepad $pkgdir/usr/bin/
+	install -Dm 642 $pkgname/$pkgname.desktop $pkgdir/usr/share/applications/
+	install -Dm 644 $pkgname/LICENSE $pkgdir/usr/share/licenses/$pkgname/
+}
